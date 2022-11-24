@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+</head>
+<body>
+    <h1>Signup</h1>
+    <hr/>
+    <form action="signup" method="POST">
+        {% csrf_token %}
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        {% endif %}
+    <table  border="1">
+        <tr>
+            <td>Name</td>
+            <td> <input type="text" placeholder="Enter your Name..." name="name" required></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td> <input type="email" placeholder="Enter your Email..." name="email" required></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td> <input type="password" placeholder="Create Password..." required
+                onchange="form.cpassword.pattern=this.value" name="password" ></td>
+        </tr>
+        <tr>
+            <td>Confirm Password</td>
+            <td> <input type="password" placeholder="Confirm Password..." name="cpassword" pattern="" required></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td> <input type="radio" value="M" name="gender">Male | <input type="radio" value="F" name="gender">Female</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button type="submit">Registration</button></td>
+        </tr>
+    </table>
+    
+    {% if messages %}
+    {% for result in messages %}
+    <b style="color: green;">{{result}}</b>
+    {% endfor %}
+    {% endif %}
+    <hr/>
+    <em>Already have an account <a href="{% url 'login' %}">Login</a></em>
+    </form>
+</body>
+</html>

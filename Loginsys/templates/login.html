@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <hr/>
+    <form action="home" method="POST">
+        {% csrf_token %}
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        {% endif %}
+    <table  border="1">
+        <tr>
+            <td>Email</td>
+            <td> <input type="email" placeholder="Enter your Email..." name="email" value="{{values.email}}" required></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td> <input type="password" placeholder="Enter Password..." name="password" required></td>
+        </tr>
+            <td></td>
+            <td><button type="submit">Login</button></td>
+        </tr>
+    </table>
+    
+    {% if messages %}
+    {% for result in messages %}
+    <b style="color: green;">{{result}}</b>
+    {% endfor %}
+    {% endif %}
+    <hr/>
+    <em>Don't have an account <a href="{% url 'signup' %}">Signup</a></em>
+    </form>
+</body>
+</html>
