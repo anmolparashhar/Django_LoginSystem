@@ -16,7 +16,8 @@
       </div>
       {% endif %}
     <h1> Welcome to the Coding World. </h1>
-    <p> {{ uname }},you are successfully logged in.Your email-id is {{ uemail }}. Your id is {{ uid }} </p>
+    <p> {{ luser_name }},you are successfully logged in.Your email-id is {{ luser_email }}. Your id is {{ luser_id }} </p>
+
     <a href="{% url 'logout' %}">Logout</a>
     </form>
     <div class="container">
@@ -26,19 +27,29 @@
                 <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Gender</th>
+                      <th style="text-align:center">Name</th>
+                      <th style="text-align:center">Email</th>
+                      <th style="text-align:center">Gender</th>
+                      <th style="text-align:center">Expenses</th>
                     </tr>
                   </thead>
                   <tbody>
                       {% for rs_emp in users %}
                       <tr>
-                          <td>{{ rs_emp.name }}</td>
-                          <td>{{ rs_emp.email }}</td>
-                          <td>{{ rs_emp.gender }}</td>
+                          <td style="text-align:center">{{ rs_emp.name }}</td>
+                          <td style="text-align:center">{{ rs_emp.email }}</td>
+                          <td style="text-align:center">{{ rs_emp.gender }}</td>
+                          <td style="text-align:center">{{ rs_emp.expenses }}</td>
                       </tr>
                       {% endfor %}
+                  </tbody>
+                  <tbody>
+                    <tr>
+                      <td style="text-align:center"><b>Sum Total</b></td>
+                      <td></td>
+                      <td></td>
+                      <td style="text-align:center"><b>{{ tsum.total }}</b></td>
+                  </tr>
                   </tbody>
                </table>
                 <nav aria-label="...">
