@@ -11,6 +11,7 @@ from django.contrib.auth.hashers import make_password,check_password
 from pprint import pprint
 import json
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -19,12 +20,13 @@ import xlwt
 from weasyprint import HTML
 from django.template.loader import render_to_string
 import tempfile
+from . decorators import login_is_required
 from django.db.models import Sum
 
 def Indexpage(request):
     return render(request, 'index.html')
 
-#@login_required(login_url='login')
+@login_is_required()
 def Homepage(request):
         cust = newuser.objects.all().values()
         users = newuser.objects.all()
@@ -88,6 +90,8 @@ def Loginpage(request):
                 request.session['customer_id'] = luser.id
                 request.session['customer_email'] = luser.email
                 request.session['customer_name'] = luser.name
+                if request.GET.get('next', None):
+                    return HttpResponseRedirect(request.GET['next'])
                 return redirect(Homepage)
             else:
                 error_message='Invalid Password'
@@ -102,9 +106,9 @@ def Loginpage(request):
 
 def Logoutpage(request):
     try:
-        del request.session['email']
+        del request.session['customer_email']
     except:
-        return render(request, 'index.html')
+        return HttpResponse('Something went wrong')
     return render(request, 'index.html')
 
 
